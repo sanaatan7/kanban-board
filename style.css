@@ -1,0 +1,161 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+  width: 100%;
+  font-family: Arial;
+}
+
+body {
+  padding: 13px 70px;
+  background-color: #83b366;
+}
+
+.header {
+  text-align: center;
+  margin-top: 37px;
+}
+.header h1 {
+  font-size: 70px;
+  align-self: center;
+  width: 100%;
+}
+
+.main {
+  display: flex;
+  gap: 50px;
+  align-items: center;
+  justify-content: center;
+  margin-top: 70px;
+}
+.main .card {
+  width: 20vw;
+  height: 32vw;
+  background-color: #d7eaac;
+  flex-shrink: 0;
+  border-radius: 20px;
+}
+
+.footer {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+}
+
+.footer button {
+  background-color: black;
+  color: hsl(110, 88%, 52%);
+  border-radius: 50%;
+  padding: 10px 13px;
+  border: none;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.card-header {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  flex-wrap: wrap;
+}
+.card-header h3 {
+  font-size: 30px;
+  padding: 35px;
+}
+.card-header p {
+  font-weight: bolder;
+}
+
+.task {
+  background-color: #98d76e;
+  margin: 6px 40px;
+  padding: 10px 24px;
+  border-radius: 30px;
+  cursor: pointer;
+  height: 20%;
+}
+
+.task h5 {
+  margin-bottom: 10px;
+  font-size: large;
+}
+
+.card .task button {
+  margin-left: 60%;
+  margin-top: 10px;
+  width: fit-content;
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: none;
+  align-self: center;
+  background-color: #f36363;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+.add-task-page {
+  position: fixed;
+  height: 100vh;
+  width: 100vw;
+  top: 0;
+  left: 0;
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background-color: #42847554;
+  backdrop-filter: blur(3px);
+}
+
+.add-task-page .back-btn {
+  position: absolute;
+  top: 25%;
+  right: 40%;
+  font-weight: bolder;
+  font-size: larger;
+  background-color: red;
+  padding: 5px 10px;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.hidden {
+  display: flex;
+}
+.add-task-page form {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  align-items: center;
+  justify-content: center;
+}
+
+.add-task-page form input {
+  padding: 10px 20px;
+  font-size: larger;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+}
+.add-task-page form textarea {
+  padding: 10px 20px;
+  font-size: larger;
+  outline: none;
+  border: none;
+  border-radius: 10px;
+  height: 20ch;
+  width: 40vh;
+}
+
+.add-task-page form button {
+  font-size: medium;
+  padding: 5px 10px;
+  border-radius: 7px;
+  border: none;
+  margin-top: 20px;
+}
