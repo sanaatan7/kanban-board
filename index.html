@@ -1,60 +1,101 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Kanban Board</title>
     <link rel="stylesheet" href="style.css" />
+    <link
+      href="https://cdn.jsdelivr.net/npm/remixicon@4.9.0/fonts/remixicon.css"
+      rel="stylesheet"
+    />
   </head>
   <body>
-    <div class="header">
-      <h1>KANBAN BOARD</h1>
-    </div>
-
-    <div class="main">
-      <div id="backlog" class="card">
-        <div class="card-header">
-          <h3>Backlog</h3>
-          <p>0</p>
+    <div id="login-page" style="position: absolute; display: none">
+      <div id="login-header">
+        <h3>Count</h3>
+        <div id="header-right">
+          <a href="#">Home</a>
+          <a href="#">Contact</a>
+          <a href="#">Login</a>
         </div>
       </div>
 
-      <div id="toDo" class="card">
-        <div class="card-header">
-          <h3>To Do</h3>
-          <p>0</p>
-        </div>
-      </div>
+      <div id="login-main">
+        <p class="quot-1">Small steps move mountains</p>
+        <h1>Unreal Productivity</h1>
 
-      <div id="progress" class="card">
-        <div class="card-header">
-          <h3>In Progress</h3>
-          <p>0</p>
-        </div>
-      </div>
-
-      <div id="done" class="card">
-        <div class="card-header">
-          <h3>Done</h3>
-          <p>0</p>
+        <p id="quot">Rebuild Your Attention Span</p>
+        <div id="start-btn">
+          <button>Get Started</button>
         </div>
       </div>
     </div>
 
-    <div class="footer">
-      <button>
-        Add<br />
-        New
-      </button>
-    </div>
+    <div id="the-board" style="position: absolute; top: 0; right: 0">
+      <div class="header">
+        <h1>KANBAN BOARD</h1>
+        <i class="ri-home-fill"></i>
+      </div>
 
-    <div class="add-task-page">
-      <div class="back-btn">x</div>
-      <form>
-        <input type="text" placeholder="Enter Task Title" />
-        <textarea placeholder="Enter Detail"></textarea>
-        <button>Submit</button>
-      </form>
+      <div class="main">
+        <div id="backlog" class="card">
+          <div class="card-header">
+            <div class="left">
+              <div class="status-dot backlog"></div>
+              <h3>Backlog</h3>
+            </div>
+            <p></p>
+          </div>
+          <hr />
+        </div>
+
+        <div id="toDo" class="card">
+          <div class="card-header">
+            <div class="left">
+              <div class="status-dot todo"></div>
+              <h3>To Do</h3>
+            </div>
+            <p></p>
+          </div>
+          <hr />
+        </div>
+
+        <div id="progress" class="card">
+          <div class="card-header">
+            <div class="left">
+              <div class="status-dot progress"></div>
+              <h3>In Progress</h3>
+            </div>
+            <p></p>
+          </div>
+          <hr />
+        </div>
+
+        <div id="done" class="card">
+          <div class="card-header">
+            <div class="left">
+              <span class="status-dot done"></span>
+              <h3>Done</h3>
+            </div>
+            <p>0</p>
+          </div>
+          <hr />
+        </div>
+      </div>
+
+      <div class="footer">
+        <button><i class="ri-add-large-line"></i></button>
+      </div>
+
+      <div class="add-task-page">
+        <i class="ri-close-circle-fill"></i>
+        <form>
+          <input type="text" placeholder="Enter Task Title" />
+          <textarea placeholder="Enter Detail"></textarea>
+          <button>Add</button>
+        </form>
+      </div>
     </div>
 
     <script src="./script.js"></script>
