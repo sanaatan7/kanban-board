@@ -1,4 +1,4 @@
-## Kanban Board – Placement Rush
+## Kanban Board 
 
 A minimal Kanban-style task board built with **HTML**, **CSS**, and **vanilla JavaScript**. It is themed around “placement rush” and helps you visually organize your tasks into different stages of progress.
 
