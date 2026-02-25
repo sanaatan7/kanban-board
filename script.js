@@ -1,3 +1,4 @@
+const theBoard = document.querySelector("#the-board");
 const toDo = document.querySelector("#toDo");
 const backLog = document.querySelector("#backlog");
 const progress = document.querySelector("#progress");
@@ -6,11 +7,24 @@ const newTaskBtn = document.querySelector(".footer button");
 const tasks = document.querySelectorAll(".task");
 const newTaskModal = document.querySelector(".add-task-page");
 const newTaskForm = document.querySelector(".add-task-page form");
-const backBtn = document.querySelector(".add-task-page .back-btn");
+const backBtn = document.querySelector(".add-task-page i");
 const inputTask = document.querySelector(".add-task-page form input ");
 const taskDetail = document.querySelector(".add-task-page form textarea ");
 const formBtn = document.querySelector(".add-task-page form button");
 const deletBtn = document.querySelector(".card .task button");
+const getStartedbtn = document.querySelector("#start-btn");
+const loginPage = document.querySelector("#login-page");
+const goHomeBtn = document.querySelector(".ri-home-fill");
+
+getStartedbtn.addEventListener("click", () => {
+  loginPage.style.display = "none";
+  theBoard.style.display = "block";
+});
+
+goHomeBtn.addEventListener("click", () => {
+  loginPage.style.display = "block";
+  theBoard.style.display = "none";
+});
 
 let draggedItem = null;
 let toDoArr = [];
@@ -47,22 +61,22 @@ const dragEventsOnColumn = (col) => {
         // Remove from source array
         if (parentCol === toDo) {
           toDoArr = toDoArr.filter(
-            (task) => task.taskTitle !== title || task.taskInfo !== info
+            (task) => task.taskTitle !== title || task.taskInfo !== info,
           );
           saveTaskToLocalStorage(toDoArr, "toDo");
         } else if (parentCol === backLog) {
           backLogArr = backLogArr.filter(
-            (task) => task.taskTitle !== title || task.taskInfo !== info
+            (task) => task.taskTitle !== title || task.taskInfo !== info,
           );
           saveTaskToLocalStorage(backLogArr, "backLog");
         } else if (parentCol === progress) {
           progressArr = progressArr.filter(
-            (task) => task.taskTitle !== title || task.taskInfo !== info
+            (task) => task.taskTitle !== title || task.taskInfo !== info,
           );
           saveTaskToLocalStorage(progressArr, "progress");
         } else if (parentCol === done) {
           doneArr = doneArr.filter(
-            (task) => task.taskTitle !== title || task.taskInfo !== info
+            (task) => task.taskTitle !== title || task.taskInfo !== info,
           );
           saveTaskToLocalStorage(doneArr, "done");
         }
@@ -110,22 +124,22 @@ const addDeleteListener = (taskElement) => {
     // Remove from appropriate array based on parent column
     if (parentCol === toDo) {
       toDoArr = toDoArr.filter(
-        (task) => task.taskTitle !== title || task.taskInfo !== info
+        (task) => task.taskTitle !== title || task.taskInfo !== info,
       );
       saveTaskToLocalStorage(toDoArr, "toDo");
     } else if (parentCol === backLog) {
       backLogArr = backLogArr.filter(
-        (task) => task.taskTitle !== title || task.taskInfo !== info
+        (task) => task.taskTitle !== title || task.taskInfo !== info,
       );
       saveTaskToLocalStorage(backLogArr, "backLog");
     } else if (parentCol === progress) {
       progressArr = progressArr.filter(
-        (task) => task.taskTitle !== title || task.taskInfo !== info
+        (task) => task.taskTitle !== title || task.taskInfo !== info,
       );
       saveTaskToLocalStorage(progressArr, "progress");
     } else if (parentCol === done) {
       doneArr = doneArr.filter(
-        (task) => task.taskTitle !== title || task.taskInfo !== info
+        (task) => task.taskTitle !== title || task.taskInfo !== info,
       );
       saveTaskToLocalStorage(doneArr, "done");
     }
@@ -268,8 +282,14 @@ newTaskForm.addEventListener("submit", (e) => {
 });
 
 formBtn.addEventListener("click", () => {
-  let taskTitle = inputTask.value;
-  let taskInfo = taskDetail.value;
+  let taskTitle = inputTask.value.trim();
+  let taskInfo = taskDetail.value.trim();
+
+  if (!taskTitle) {
+    alert("Task title is required.");
+    return;
+  }
+
   toDoArr.push({ taskTitle, taskInfo });
   saveTaskToLocalStorage(toDoArr, "toDo");
   makeToDoTask(taskTitle, taskInfo);
