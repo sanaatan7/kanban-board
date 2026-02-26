@@ -112,7 +112,8 @@ const addDragListeners = (taskElement) => {
 
 // Function to add delete listener to a task element
 const addDeleteListener = (taskElement) => {
-  const deleteBtn = taskElement.querySelector("button");
+  const deleteBtn = taskElement.querySelector(".delete-btn");
+  if (!deleteBtn) return;
   deleteBtn.addEventListener("click", (e) => {
     e.stopPropagation(); // Prevent event bubbling
 
@@ -150,6 +151,66 @@ const addDeleteListener = (taskElement) => {
   });
 };
 
+// Function to add edit listener to a task element
+const addEditListener = (taskElement) => {
+  const editBtn = taskElement.querySelector(".edit-btn");
+  if (!editBtn) return;
+
+  editBtn.addEventListener("click", (e) => {
+    e.stopPropagation();
+
+    const taskDiv = e.currentTarget.parentElement;
+    const parentCol = taskDiv.parentElement;
+    const titleEl = taskDiv.querySelector("h5");
+    const infoEl = taskDiv.querySelector("p");
+
+    const oldTitle = titleEl.textContent;
+    const oldInfo = infoEl.textContent;
+
+    const newTitle = prompt("Edit task title:", oldTitle)?.trim();
+    if (newTitle === null || newTitle === "") {
+      // If user cancels or clears the title, do nothing
+      return;
+    }
+
+    const newInfo = prompt("Edit task details:", oldInfo)?.trim() ?? "";
+
+    // Update in-memory array and localStorage based on parent column
+    let arrRef = null;
+    let key = "";
+
+    if (parentCol === toDo) {
+      arrRef = toDoArr;
+      key = "toDo";
+    } else if (parentCol === backLog) {
+      arrRef = backLogArr;
+      key = "backLog";
+    } else if (parentCol === progress) {
+      arrRef = progressArr;
+      key = "progress";
+    } else if (parentCol === done) {
+      arrRef = doneArr;
+      key = "done";
+    }
+
+    if (arrRef) {
+      const idx = arrRef.findIndex(
+        (task) => task.taskTitle === oldTitle && task.taskInfo === oldInfo,
+      );
+
+      if (idx !== -1) {
+        arrRef[idx].taskTitle = newTitle;
+        arrRef[idx].taskInfo = newInfo;
+        saveTaskToLocalStorage(arrRef, key);
+      }
+    }
+
+    // Update DOM
+    titleEl.textContent = newTitle;
+    infoEl.textContent = newInfo;
+  });
+};
+
 const makeToDoTask = (a, b) => {
   let div = document.createElement("div");
   div.draggable = true;
@@ -157,10 +218,12 @@ const makeToDoTask = (a, b) => {
   div.innerHTML = `
             <h5>${a}</h5>
             <p>${b}</p>
-            <button>Delete</button>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
   `;
   addDragListeners(div);
   addDeleteListener(div);
+  addEditListener(div);
   toDo.appendChild(div);
   countTasks();
 };
@@ -180,12 +243,14 @@ const makeTaskCard = (col) => {
       div.innerHTML = `
             <h5>${task.taskTitle}</h5>
             <p>${task.taskInfo}</p>
-            <button>Delete</button>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
             `;
       div.draggable = true;
       div.classList.add("task");
       addDragListeners(div);
       addDeleteListener(div);
+      addEditListener(div);
       toDo.appendChild(div);
     });
   } else if (col === "backLog") {
@@ -194,12 +259,14 @@ const makeTaskCard = (col) => {
       div.innerHTML = `
             <h5>${task.taskTitle}</h5>
             <p>${task.taskInfo}</p>
-            <button>Delete</button>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
             `;
       div.draggable = true;
       div.classList.add("task");
       addDragListeners(div);
       addDeleteListener(div);
+      addEditListener(div);
       backLog.appendChild(div);
     });
   } else if (col === "progress") {
@@ -208,12 +275,14 @@ const makeTaskCard = (col) => {
       div.innerHTML = `
             <h5>${task.taskTitle}</h5>
             <p>${task.taskInfo}</p>
-            <button>Delete</button>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
             `;
       div.draggable = true;
       div.classList.add("task");
       addDragListeners(div);
       addDeleteListener(div);
+      addEditListener(div);
       progress.appendChild(div);
     });
   } else {
@@ -222,12 +291,14 @@ const makeTaskCard = (col) => {
       div.innerHTML = `
             <h5>${task.taskTitle}</h5>
             <p>${task.taskInfo}</p>
-            <button>Delete</button>
+            <button class="edit-btn">Edit</button>
+            <button class="delete-btn">Delete</button>
             `;
       div.draggable = true;
       div.classList.add("task");
       addDragListeners(div);
       addDeleteListener(div);
+      addEditListener(div);
       done.appendChild(div);
     });
   }
@@ -266,6 +337,8 @@ countTasks();
 // Add drag listeners to initial tasks in HTML
 tasks.forEach((task) => {
   addDragListeners(task);
+  addDeleteListener(task);
+  addEditListener(task);
 });
 
 dragEventsOnColumn(toDo);
